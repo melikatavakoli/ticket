@@ -1,0 +1,12 @@
+Django==4.3.3
+djangorestframework==3.20.1
+django-filter==23.2
+pytz==2025.7
+djangorestframework-simplejwt==2.8.0
+drf-yasg==1.22.1
+psycopg2-binary==2.9.7  # اگر از PostgreSQL استفاده می‌کنید
+# برای آپلود فایل‌ها
+django-storages==1.19.1
+boto3==1.28.47  # اگر از AWS S3 استفاده می‌کنید
+# Pagination و سایر کتابخانه‌های مفید
+django-cors-headers==4.4.0
