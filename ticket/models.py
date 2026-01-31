@@ -3,8 +3,16 @@ from django.contrib.auth import get_user_model
 from django.db import models
 import jdatetime
 from core.models import GenericModel
-from ticket.type import PriorityType, TicketCategory, TicketStatus
-from ticket.utils import ticket_attachment_path, validate_attachment_file, generate_ticket_number
+from ticket.type import (
+    PriorityType, 
+    TicketCategory, 
+    TicketStatus
+    )
+from ticket.utils import (
+    ticket_attachment_path, 
+    validate_attachment_file, 
+    generate_ticket_number
+    )
 
 User = get_user_model()
 

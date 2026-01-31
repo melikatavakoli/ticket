@@ -3,21 +3,10 @@ from rest_framework import serializers
 from core.serializers import GenericModelSerializer
 from ticket.models import Ticket, TicketDetail
 from django.contrib.auth import get_user_model
-
 from user.models import Staff
 User = get_user_model()
 from django.utils import timezone
-from django.db import transaction
 
-# # ========================================================================================
-# # ================== Ticket Export Input Serializer
-# # ========================================================================================-
-# class TicketExportInputSerializer(serializers.Serializer):
-#     fields = serializers.ListField(
-#         child=serializers.CharField(),
-#         required=False
-#     )
-    
 # # ========================================================================================
 # # ================== User-Mini Serializer
 # # ========================================================================================-
@@ -35,7 +24,10 @@ class UserMiniSerializer(serializers.ModelSerializer):
 # # ========================================================================================-
 class UserCreateTicketSerializer(serializers.ModelSerializer):
     message = serializers.CharField(write_only=True)
-    attachment = serializers.FileField(required=False, write_only=True)
+    attachment = serializers.FileField(
+        required=False, 
+        write_only=True
+        )
     user_ids = serializers.PrimaryKeyRelatedField(
         queryset=Staff.objects.all(),
         many=True,
@@ -63,14 +55,12 @@ class UserCreateTicketSerializer(serializers.ModelSerializer):
         attachment = validated_data.pop('attachment', None)
         staff_list = validated_data.pop('user_ids', [])
 
-        # 🔹 فقط core_user مهم است
         users = {
             s.core_user
             for s in staff_list
             if s.core_user
         }
 
-        # 🔹 سازنده همیشه اضافه شود
         users.add(current_user)
 
         ticket = Ticket.objects.create(
@@ -179,7 +169,13 @@ class TicketDetailSerializer(serializers.ModelSerializer):
             full_name = creator
             role = "" 
         else:
-            full_name = getattr(creator, 'full_name', f"{getattr(creator, 'first_name', '')} {getattr(creator, 'last_name', '')}").strip()
+            full_name = getattr(
+                creator, 
+                'full_name', 
+                f"{getattr(creator, 
+                'first_name', ''
+                )
+                } {getattr(creator, 'last_name', '')}").strip()
             role = getattr(creator.staff_role, 'key', '') if hasattr(creator, 'staff_role') else ''
 
         return {

@@ -107,8 +107,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #SWAGGER
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'FioTriX API Documentation',
-    'DESCRIPTION': 'API documentation for fiotrix-website',
+    'TITLE': 'Ticket API Documentation',
+    'DESCRIPTION': 'API documentation for Ticket',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': True,
     'SWAGGER_UI_SETTINGS': {
